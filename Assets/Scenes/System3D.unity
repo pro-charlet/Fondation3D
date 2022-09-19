@@ -2006,6 +2006,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PanelUsine
       objectReference: {fileID: 0}
+    - target: {fileID: 2478892830701321875, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
+      propertyPath: m_margin.x
+      value: 155.72272
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478892830701321875, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
+      propertyPath: m_margin.z
+      value: 318.17575
+      objectReference: {fileID: 0}
     - target: {fileID: 2588948359303587492, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
       propertyPath: myType
       value: 2
@@ -2464,14 +2472,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PanelLogement
       objectReference: {fileID: 0}
-    - target: {fileID: 2478892830550874148, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
-      propertyPath: m_text
-      value: Up
-      objectReference: {fileID: 0}
-    - target: {fileID: 2478892830550874149, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2478892830701321872, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 283.3
@@ -2479,10 +2479,6 @@ PrefabInstance:
     - target: {fileID: 2478892830701321872, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
       propertyPath: m_SizeDelta.y
       value: 27.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 2478892830701321872, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2478892830701321872, guid: 226a961a52cd1bb39bc48f572e70fe2e, type: 3}
       propertyPath: m_LocalPosition.z

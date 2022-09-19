@@ -8,7 +8,7 @@ public class UISysteme : MonoBehaviour
     public static UISysteme Instance { get; private set; }
     public GameObject selectedObject;
 
-    protected IUIPlaneteContent selectedPlaneteContent;
+    public IUIPlaneteContent selectedPlaneteContent;
     protected bool isContentChange;
 
     [SerializeField] private TextMeshProUGUI textOID;
@@ -23,7 +23,7 @@ public class UISysteme : MonoBehaviour
         bool IsDirty();
         string GetOID();
         Material GetMaterial();
-        string GetRessource(Constants.Ressources res);
+        long GetRessource(Constants.Ressources res);
         Batiment GetBatiment(Constants.Batiments bat);
         string GetMinierNextExtractionTime();
         string GetMinierTotalExtractionTime();
@@ -52,7 +52,7 @@ public class UISysteme : MonoBehaviour
             objectUI.GetComponent<Renderer>().material = selectedPlaneteContent.GetMaterial();
             objectUI.SetActive(true);
 
-            textFer.text = selectedPlaneteContent.GetRessource(Constants.Ressources.Fer);
+            textFer.text = selectedPlaneteContent.GetRessource(Constants.Ressources.Fer).ToString();
             textExtraction.text = "Prochaine extraction dans : " + selectedPlaneteContent.GetMinierNextExtractionTime() + " / " + selectedPlaneteContent.GetMinierTotalExtractionTime();
         }
     }

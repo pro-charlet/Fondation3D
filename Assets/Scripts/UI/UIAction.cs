@@ -36,5 +36,23 @@ public class UIAction : MonoBehaviour
 
     }
 
+    public Batiment UpgradeBatiment(Batiment myBatiment, PlaneteDetail myDetail, Constants.Batiments myType)
+    {
+        if (myBatiment == null)
+        {
+            myBatiment = Batiment.NewBaseBatiment(myDetail.SystemeId, myDetail.PlaneteId, myType);
+            RealmController.Instance._realm.Write(() => {
+                RealmController.Instance._realm.Add(myBatiment);
+            });
+        }
+
+        RealmController.Instance._realm.Write(() => {
+            myBatiment.Niveau += 1;
+
+            myDetail.Fer -= 100;
+        });
+
+        return myBatiment;
+    }
 
 }

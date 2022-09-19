@@ -55,11 +55,11 @@ public class BasePlaneteController : MonoBehaviour,
 
         switch(b.Type)
         {
-            case "Logement":
+            case Batiment.Logement:
             batType = Constants.Batiments.Logement;
             break;
 
-            case "Usine":
+            case Batiment.Usine:
             batType = Constants.Batiments.Usine;
             break;
 
@@ -91,12 +91,12 @@ public class BasePlaneteController : MonoBehaviour,
         return true;
     }
 
-    public string GetRessource(Constants.Ressources res)
+    public long GetRessource(Constants.Ressources res)
     {
         if (res == Constants.Ressources.Fer)
-            return myDetail.Fer.ToString();
+            return myDetail.Fer;
 
-        return "";
+        return 0;
     }
 
     public bool IsBatimentActive(Constants.Batiments bat)

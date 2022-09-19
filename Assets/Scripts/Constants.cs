@@ -10,6 +10,6 @@ public static class Constants
     public static TimeSpan MineBaseExtraction = new TimeSpan(24,0,0);
     public static TimeSpan TimeTravelBetweenPlanete = new TimeSpan(0,10,0);
 
-    public enum Ressources {Fer, Cuivre};
+    public enum Ressources {Fer, Pierre, Cuivre};
     public enum Batiments {None, Logement, Usine, Astroport}; //Type des batiments
 }

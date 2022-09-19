@@ -13,11 +13,11 @@ public class Flotte : RealmObject
 
     public static Flotte NewBaseFlotte(string systemeId, string planeteId)
     {
-        Flotte newFlotte = new Flotte();
-        newFlotte.Id = ObjectId.GenerateNewId();
-        newFlotte.Prefab = Constants.FlottePrefab;
-        newFlotte.SystemeId = systemeId;
-        newFlotte.PlaneteId = planeteId;
-        return newFlotte;
+        Flotte newObj = new Flotte();
+        newObj.Id = ObjectId.GenerateNewId();
+        newObj.Prefab = Constants.FlottePrefab;
+        newObj.SystemeId = systemeId;
+        newObj.PlaneteId = planeteId;
+        return newObj;
     }
 }
