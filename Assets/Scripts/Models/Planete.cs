@@ -19,4 +19,8 @@ public class Planete : RealmObject
     public float Fer { get; set; } 
     public float Cuivre { get; set; }
 
+    // Cycle de consommation
+    public int Cycle { get; set; }
+
+
 }

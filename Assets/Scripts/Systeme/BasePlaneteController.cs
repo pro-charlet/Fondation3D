@@ -8,7 +8,7 @@ public class BasePlaneteController : MonoBehaviour,
     public string OID;
     public Planete myPlanete;
     public PlaneteDetail myDetail;
-    public Dictionary<Constants.Batiments, Batiment> myBatiments;
+    public Dictionary<Constants.Batiments, GameObject> myBatiments;
     public List<GameObject> orbitFlotte;
     public GameObject minierFlottePrefab;
     private MinierController myMinierCtrl;
@@ -47,28 +47,15 @@ public class BasePlaneteController : MonoBehaviour,
 
     }
 
-    public void AddBatiment(Batiment b)
+    public void AddBatiment(GameObject bat)
     {
-        Constants.Batiments batType = Constants.Batiments.None;
         if (myBatiments == null)
-            myBatiments = new Dictionary<Constants.Batiments, Batiment>();
+            myBatiments = new Dictionary<Constants.Batiments, GameObject>();
 
-        switch(b.Type)
-        {
-            case Batiment.Logement:
-            batType = Constants.Batiments.Logement;
-            break;
-
-            case Batiment.Usine:
-            batType = Constants.Batiments.Usine;
-            break;
-
-        }
-
-        myBatiments.Add(batType, b);
+        myBatiments.Add(bat.GetComponent<BaseBatimentController>().myType, bat);
     }
 
-    public Batiment GetBatiment(Constants.Batiments type)
+    public GameObject GetBatiment(Constants.Batiments type)
     {
         if ((myBatiments != null) && (myBatiments.ContainsKey(type)))
             return myBatiments[type];
@@ -90,16 +77,24 @@ public class BasePlaneteController : MonoBehaviour,
     {
         return true;
     }
+    public bool IsEarth()
+    {
+        return (myPlanete.Prefab == PrefabPlanete.Earth);
+    }
 
     public long GetRessource(Constants.Ressources res)
     {
         if (res == Constants.Ressources.Fer)
             return myDetail.Fer;
+        if (res == Constants.Ressources.Pierre)
+            return myDetail.Pierre;
+        if (res == Constants.Ressources.Vivre)
+            return myDetail.Vivre;
 
         return 0;
     }
 
-    public bool IsBatimentActive(Constants.Batiments bat)
+/*    public bool IsBatimentActive(Constants.Batiments bat)
     {
         bool isActive = false;
         if (myBatiments.ContainsKey(bat))
@@ -107,7 +102,7 @@ public class BasePlaneteController : MonoBehaviour,
 
         return isActive;
     }
-
+*/
     public string GetMinierNextExtractionTime()
     {
         if (myMinierCtrl != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,8 +37,9 @@ public class UIAction : MonoBehaviour
 
     }
 
-    public Batiment UpgradeBatiment(Batiment myBatiment, PlaneteDetail myDetail, Constants.Batiments myType)
+    public void UpgradeBatiment(Batiment myBatiment, PlaneteDetail myDetail, Constants.Batiments myType)
     {
+        /*
         if (myBatiment == null)
         {
             myBatiment = Batiment.NewBaseBatiment(myDetail.SystemeId, myDetail.PlaneteId, myType);
@@ -45,14 +47,14 @@ public class UIAction : MonoBehaviour
                 RealmController.Instance._realm.Add(myBatiment);
             });
         }
+        */
 
         RealmController.Instance._realm.Write(() => {
             myBatiment.Niveau += 1;
+            myBatiment.ProductionStart = DateTime.UtcNow.Ticks;
 
             myDetail.Fer -= 100;
         });
-
-        return myBatiment;
     }
 
 }

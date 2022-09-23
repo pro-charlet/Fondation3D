@@ -13,6 +13,7 @@ public class UISysteme : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textOID;
     [SerializeField] private TextMeshProUGUI textFer;
+    [SerializeField] private TextMeshProUGUI textVivre;
     [SerializeField] private TextMeshProUGUI textExtraction;
 
     [SerializeField] private GameObject objectUI;
@@ -21,10 +22,11 @@ public class UISysteme : MonoBehaviour
     public interface IUIPlaneteContent
     {
         bool IsDirty();
+        bool IsEarth();
         string GetOID();
         Material GetMaterial();
         long GetRessource(Constants.Ressources res);
-        Batiment GetBatiment(Constants.Batiments bat);
+        GameObject GetBatiment(Constants.Batiments bat);
         string GetMinierNextExtractionTime();
         string GetMinierTotalExtractionTime();
     }
@@ -52,6 +54,7 @@ public class UISysteme : MonoBehaviour
             objectUI.GetComponent<Renderer>().material = selectedPlaneteContent.GetMaterial();
             objectUI.SetActive(true);
 
+            textVivre.text = selectedPlaneteContent.GetRessource(Constants.Ressources.Vivre).ToString();
             textFer.text = selectedPlaneteContent.GetRessource(Constants.Ressources.Fer).ToString();
             textExtraction.text = "Prochaine extraction dans : " + selectedPlaneteContent.GetMinierNextExtractionTime() + " / " + selectedPlaneteContent.GetMinierTotalExtractionTime();
         }
@@ -67,11 +70,9 @@ public class UISysteme : MonoBehaviour
             foreach(GameObject obj in panelBatiments)
             {
                 UIBatiment uiBat = obj.GetComponent<UIBatiment>();
-                uiBat.myBatiment = selectedPlaneteContent.GetBatiment(uiBat.myType);
+                obj.SetActive(selectedPlaneteContent.IsEarth());
+                uiBat.selectedObject = selectedPlaneteContent.GetBatiment(uiBat.myType);
                 uiBat.isContentChange = true;
-
-                if (uiBat.myBatiment != null)
-                Debug.Log(uiBat.myBatiment.Id);
             }
         }
     }

@@ -10,6 +10,9 @@ public class MainSysteme : MonoBehaviour
     public GameObject earthPlanetePrefab;
     public GameObject gazPlanetePrefab;
     public GameObject flottePrefab;
+    public GameObject logementPrefab;
+    public GameObject usinePrefab;
+    public GameObject serrePrefab;
 
     private Dictionary<string, GameObject> allPrefabs;
 
@@ -29,6 +32,9 @@ public class MainSysteme : MonoBehaviour
         allPrefabs.Add(PrefabPlanete.Earth, earthPlanetePrefab);
         allPrefabs.Add(PrefabPlanete.Gaz, gazPlanetePrefab);
         allPrefabs.Add(Constants.FlottePrefab, flottePrefab);
+        allPrefabs.Add(PrefabBatiment.Logement, logementPrefab);
+        allPrefabs.Add(PrefabBatiment.Usine, usinePrefab);
+        allPrefabs.Add(PrefabBatiment.Serre, serrePrefab);
 
         LoadSysteme(demoId);
     }
@@ -61,7 +67,8 @@ public class MainSysteme : MonoBehaviour
             IEnumerable<Batiment> batiments = RealmController.Instance.LoadBatiments(systemeId);
             foreach (Batiment b in batiments)
             {
-                allPlanetes[b.PlaneteId].GetComponent<BasePlaneteController>().AddBatiment(b);
+                GameObject obj = InstantiateBatiment(b, allPlanetes[b.PlaneteId].transform);
+                allPlanetes[b.PlaneteId].GetComponent<BasePlaneteController>().AddBatiment(obj);
             }   
 
             IEnumerable<Flotte> flottes = RealmController.Instance.LoadFlottes(systemeId);
@@ -80,11 +87,19 @@ public class MainSysteme : MonoBehaviour
 
     }
 
-    public GameObject InstantiateFlotte(Flotte f)
+    public GameObject InstantiateFlotte(Flotte flo)
     {
-        GameObject obj = Instantiate(allPrefabs[f.Prefab], new Vector3(0, 0, 0), Quaternion.identity);
-        obj.GetComponent<BaseFlotteController>().myFlotte = f;
-        obj.GetComponent<BaseFlotteController>().OrigineObject = allPlanetes[f.PlaneteId];
+        GameObject obj = Instantiate(allPrefabs[flo.Prefab], new Vector3(0, 0, 0), Quaternion.identity);
+        obj.GetComponent<BaseFlotteController>().myFlotte = flo;
+        obj.GetComponent<BaseFlotteController>().OrigineObject = allPlanetes[flo.PlaneteId];
+
+        return obj;
+    }
+
+    public GameObject InstantiateBatiment(Batiment bat, Transform planete)
+    {
+        GameObject obj = Instantiate(allPrefabs[bat.Prefab], new Vector3(0, 0, 0), Quaternion.identity, planete);
+        obj.GetComponent<BaseBatimentController>().myBatiment = bat;
 
         return obj;
     }

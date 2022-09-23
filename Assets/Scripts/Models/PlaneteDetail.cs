@@ -11,4 +11,7 @@ public class PlaneteDetail : RealmObject
     public long MinierStart { get; set; }
     public long Pierre { get; set; }
     public long Fer { get; set; }
+    public long Vivre { get; set; }
+
+    public long CycleStart { get; set; }
 }

@@ -7,11 +7,21 @@ using TMPro;
 public class UIBatiment : MonoBehaviour
 {
     public bool isContentChange;
+    public GameObject selectedObject;
+    private IUIBatimentContent selectedBatimentContent;
 
-    public Batiment myBatiment;
     public Constants.Batiments myType;
     [SerializeField] private TextMeshProUGUI textNiveau;
     [SerializeField] private Button btnUp;
+
+    public interface IUIBatimentContent
+    {
+        Batiment GetBatiment();
+        string GetNiveau();
+        string GetTypeText();
+        bool IsUpgradable();
+    }
+
 
     private void Update()
     {
@@ -19,13 +29,13 @@ public class UIBatiment : MonoBehaviour
         {
             isContentChange = false;
 
-            btnUp.interactable = this.IsUpgradable();
-
-            if (myBatiment != null)
+            if (selectedObject != null)
             {
-                textNiveau.text = "Niv " + myBatiment.Niveau.ToString();
-            } else {
-                textNiveau.text = "Niveau ";
+                selectedBatimentContent = selectedObject.GetComponentInParent<IUIBatimentContent>();
+                textNiveau.text = selectedBatimentContent.GetTypeText() + " Niv " + selectedBatimentContent.GetNiveau();
+
+                btnUp.interactable = selectedBatimentContent.IsUpgradable();
+
             }
         }
     }
@@ -33,28 +43,9 @@ public class UIBatiment : MonoBehaviour
     public void HandleUpButton()
     {
         GameObject obj = MainSysteme.Instance.allPlanetes[UISysteme.Instance.selectedPlaneteContent.GetOID()];
-        myBatiment = UIAction.Instance.UpgradeBatiment(myBatiment, obj.GetComponent<BasePlaneteController>().myDetail, myType);
+        UIAction.Instance.UpgradeBatiment(selectedBatimentContent.GetBatiment(), obj.GetComponent<BasePlaneteController>().myDetail, myType);
 
         isContentChange = true;
-    }
-
-    private bool IsUpgradable()
-    {
-        bool canUp = true;
-
-        if (myType == Constants.Batiments.Logement)
-        foreach(Constants.Ressources res in PrefabBatiment.CostLogement.Keys)
-        {
-            if (myBatiment == null) {
-                canUp &= (PrefabBatiment.CostLogement[res][0] <= UISysteme.Instance.selectedPlaneteContent.GetRessource(res));
-
-            } else {
-                canUp &= myBatiment.IsUpgradable(myType);
-                canUp &= (PrefabBatiment.CostLogement[res][myBatiment.Niveau] <= UISysteme.Instance.selectedPlaneteContent.GetRessource(res));
-            }
-        }
-
-        return canUp;
     }
 
 }
